@@ -18,6 +18,14 @@
 #define RES "\e[40;1m"
 #define LC "\n\t\t«-------------------------------------------------------------------------------------------»\n"
 #define ST "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+#if defined(__linux__) || defined(__linux)
+#define CLEAR_CMD "clear"
+#elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
+#define CLEAR_CMD "cls"
+#endif
+#define LimpiarPantalla() system(CLEAR_CMD)
+
 typedef struct{
 	int dia,mes,ano;
 }tipo_fecha;
