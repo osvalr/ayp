@@ -24,7 +24,7 @@
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
 #define CLEAR_CMD "cls"
 #endif
-#define LimpiarPantalla() system(CLEAR_CMD)
+#define limpiar_pantalla() system(CLEAR_CMD)
 
 typedef struct
 {
@@ -79,14 +79,13 @@ int cantidad_cuentas;
 int cantidad_sucursales;
 int cantidad_transacciones;
 ///----------------------> FIN VARIABLES GLOBALES
-
-interfaz()
+mostrar_interfaz_cargando()
 {
     char* p[3] = {">", "> >", "> > >"};
     char* q[3] = {"    <", "  < <", "< < <"};
     int i, j;
     float k;
-    LimpiarPantalla();
+    limpiar_pantalla();
 
     for (i = 0; i < 5; i++)
     {
@@ -95,11 +94,11 @@ interfaz()
             printf("\n\n\n\n"CAM"\t\t\t\t\t%s"CB"Cargando Interfaz del Banco 100% Universitario"CAM"%s"CB"\n\n\n\n",
                    q[j], p[j]);
             system("sleep 0.3");
-            LimpiarPantalla();
+            limpiar_pantalla();
         }
     }
 }
-pres()
+mostrar_presentacion()
 {
     do
     {
@@ -153,7 +152,7 @@ pres()
     }
     while (getchar() != '\x1B');
 }
-menu(int* opc)
+mostrar_menu_principal(int* opc)
 {
     char n[10];
 
@@ -161,7 +160,7 @@ menu(int* opc)
     {
         do
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf(CAZ"\n\n\n\n\n\n\n\n");
             printf(CB"                     ,rSi\t\tMENU PRINCIPAL - 100% BANCO UNIVERSITARIO\n");
             printf(CB"                   ;SB"CAZ"##"CB"@\n");
@@ -193,7 +192,7 @@ menu(int* opc)
     }
     while (*opc < 1 || *opc > 9);
 }
-menu_arc(int* opc)
+mostrar_menu_carga_archivos(int* opc)
 {
     char n[10];
 
@@ -201,7 +200,7 @@ menu_arc(int* opc)
     {
         do
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf("\n\n\n\t\t\tMENU DE ARCHIVOS - 100% BANCO UNIVERSITARIO\n");
             printf(CB"\n\n\n\t\t\t\t\tOPCIONES PARA CARGAR:\n");
             printf(CAZ"\t\t\t\t\t===================\n\n"CB);
@@ -225,7 +224,7 @@ menu_arc(int* opc)
     }
     while (*opc < 1 || *opc > 5 || *opc == 0);
 }
-menu_dat(int* opc)
+mostrar_menu_ingreso_datos(int* opc)
 {
     char n[10];
 
@@ -233,7 +232,7 @@ menu_dat(int* opc)
     {
         do
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf("\n\n\n\t\t\tMENU DE INGRESO POR TECLADO - 100% BANCO UNIVERSITARIO\n");
             printf(CB"\n\n\n\t\t\t\t\tOPCIONES PARA CARGAR:\n");
             printf(CAZ"\t\t\t\t\t===================\n\n"CB);
@@ -257,7 +256,7 @@ menu_dat(int* opc)
     }
     while (*opc < 1 || *opc > 5);
 }
-menu_mod(int* opc)
+mostrar_menu_modificar_datos(int* opc)
 {
     char n[10];
 
@@ -265,7 +264,7 @@ menu_mod(int* opc)
     {
         do
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf("\n\n\n\t\t\tMENU DE MODIFICACION DE DATOS - 100% BANCO UNIVERSITARIO\n");
             printf(CB"\n\n\n\t\t\t\t\tOPCIONES PARA MODIFICAR:\n");
             printf(CAZ"\t\t\t\t\t===================\n\n"CB);
@@ -288,7 +287,7 @@ menu_mod(int* opc)
     }
     while (*opc < 1 || *opc > 4);
 }
-menu_con(int* opc)
+mostrar_menu_consulta_datos(int* opc)
 {
     char n[10];
 
@@ -296,7 +295,7 @@ menu_con(int* opc)
     {
         do
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf("\n\n\n\t\t\tMENU CONSULTA DE REGISTRO - 100% BANCO UNIVERSITARIO\n");
             printf(CB"\n\n\n\t\t\t\t\tOPCIONES PARA CONSULTA:\n");
             printf(CAZ"\t\t\t\t\t===================\n\n"CB);
@@ -321,7 +320,7 @@ menu_con(int* opc)
     while (*opc < 1 || *opc > 5);
 }
 
-monto(float* m)
+obtener_monto_transaccion(float* m)
 {
     char v[M], n;
     int b, p, i, bb, pp;
@@ -392,7 +391,7 @@ monto(float* m)
 
     *m = atof(v);
 }
-ref(char ref[])
+obtener_referencia_de_cuenta(char ref[])
 {
     int j, b;
     char n;
@@ -452,7 +451,7 @@ ref(char ref[])
     }
     while (b != 8);
 }
-FechaSistema(int* d, int* m, int* a)
+obtener_fecha_sistema(int* d, int* m, int* a)
 {
     FILE* fs;
     system("date +%d/%m/%Y > factual");
@@ -461,7 +460,7 @@ FechaSistema(int* d, int* m, int* a)
     fclose(fs);
     system("rm factual");
 }
-fecha(int* di, int* me, int* an, int t)
+obtener_fecha(int* di, int* me, int* an, int t)
 {
     char dm[M], a[M], f[M];
     int x, y, z;
@@ -528,7 +527,7 @@ fecha(int* di, int* me, int* an, int t)
         }
         while (strncmp(&f[2], "\x2D", 1) != 0 && strncmp(&f[5], "\x2F", 1) != 0);
 
-        FechaSistema(&x, &y, &z);
+        obtener_fecha_sistema(&x, &y, &z);
         strcpy(a, &f[6]);
         *an = atoi(a);
         strncpy(dm, &f[3], 2);
@@ -705,7 +704,8 @@ CD(int di, int mi, int ai, int df, int mf, int af, int* aux)
         }
     }
 }
-Saldo(cuenta cu[], transaccion tr[], int ctr, int ccu)
+calcular_saldo_de_cuenta_cliente(cuenta cu[], transaccion tr[], int ctr,
+                                 int ccu)
 {
     int i, j;
 
@@ -763,7 +763,7 @@ Saldo(cuenta cu[], transaccion tr[], int ctr, int ccu)
         }
     }
 }
-Pregunta(char* n, int i)
+realizar_pregunta(char* n, int i)
 {
     //----------------------> FIN DEL REGISTRO DE CUENTAS SII EL USUARIO ASI LO DESEA
     char resp[M];
@@ -816,7 +816,7 @@ Pregunta(char* n, int i)
     }
     while (*n != 'S' && *n != 'N');
 }//----------------------> FIN DEL REGISTRO DE CUENTAS SII EL USUARIO ASI LO DESEA
-nocta(char ccta[])
+obtener_numero_de_cuenta(char ccta[])
 {
     int t, i;
     char n;
@@ -869,7 +869,8 @@ nocta(char ccta[])
     }
     while (t != 20);
 }
-sucursal(char aux[], int t)
+
+obtener_sucursal_de_banco(char aux[], int t)
 {
     char cod[M], n;
     int i, b;
@@ -953,7 +954,7 @@ sucursal(char aux[], int t)
     }
     while (b != 5);
 }
-cedula(char ci[], int t)
+obtener_cedula_de_cliente(char ci[], int t)
 {
     char aux[M];
     char n, m;
@@ -1031,7 +1032,7 @@ cedula(char ci[], int t)
     while (b != 8 || strlen(ci) != 10);
 }
 
-Archivo_Cuentas(cuenta v[], int* c)
+cargar_archivo_de_cuentas(cuenta v[], int* c)
 {
     int cant;
     FILE* cuentas;
@@ -1072,7 +1073,7 @@ Archivo_Cuentas(cuenta v[], int* c)
         *c -= 1;
     }
 }
-Archivo_Sucursal(rsucursal v[], int* c)
+cargar_archivo_de_sucursal(rsucursal v[], int* c)
 {
     FILE* sucursales;
 
@@ -1101,7 +1102,7 @@ Archivo_Sucursal(rsucursal v[], int* c)
         *c -= 1;
     }
 }
-Archivo_Clientes(cliente v[], int* c)
+cargar_archivo_de_clientes(cliente v[], int* c)
 {
     int b, i, o[MX], j, k;
     FILE* clientes;
@@ -1134,7 +1135,7 @@ Archivo_Clientes(cliente v[], int* c)
         *c -= 1;
     }
 }
-Archivo_Transaccion(transaccion v[], int* c)
+cargar_archivo_de_transaccion(transaccion v[], int* c)
 {
     FILE* transacciones;
 
@@ -1166,8 +1167,9 @@ Archivo_Transaccion(transaccion v[], int* c)
     }
 }
 
-OPERACIONES(cuenta v[], int c, rsucursal w[], int b, cliente y[], int a,
-            transaccion x[], int d)
+corroborar_operaciones_realizadas(cuenta v[], int c, rsucursal w[], int b,
+                                  cliente y[], int a,
+                                  transaccion x[], int d)
 {
     FILE* out;
     int i, j, k, l, m, o[MX], q[MX], r[MX];
@@ -1273,7 +1275,7 @@ OPERACIONES(cuenta v[], int c, rsucursal w[], int b, cliente y[], int a,
     fclose(out);
 }
 
-Busca_Cedula(cliente v[], int c, int* b, char ci[])
+buscar_cliente_de_banco(cliente v[], int c, int* b, char ci[])
 {
     int j;
     *b = 0;
@@ -1294,7 +1296,7 @@ Busca_Cedula(cliente v[], int c, int* b, char ci[])
                LC"\n\n\n\n");
     }
 }
-Busca_Sucursal(rsucursal v[], int c, int* b, char cod[])
+buscar_sucursal_de_banco(rsucursal v[], int c, int* b, char cod[])
 {
     int j;
     *b = 0;
@@ -1314,7 +1316,7 @@ Busca_Sucursal(rsucursal v[], int c, int* b, char cod[])
                LC"\n\n\n\n", cod);
     }
 }
-Busca_Cuenta(cuenta v[], int c, int* b, char cod[])
+buscar_cuenta_de_banco(cuenta v[], int c, int* b, char cod[])
 {
     int j;
     *b = 0;
@@ -1334,7 +1336,7 @@ Busca_Cuenta(cuenta v[], int c, int* b, char cod[])
                LC"\n\n\n\n", cod);
     }
 }
-Busca_Referencia(transaccion v[], int c, int* b, char ref[])
+buscar_referencia_de_transaccion(transaccion v[], int c, int* b, char ref[])
 {
     int j;
     *b = 0;
@@ -1356,7 +1358,7 @@ Busca_Referencia(transaccion v[], int c, int* b, char ref[])
     }
 }
 
-Carga_Clientes(cliente v[], int* i, int mod, int* c)
+cargar_cliente_por_interfaz(cliente v[], int* i, int mod, int* c)
 {
     int l, j;
     int b;
@@ -1366,13 +1368,13 @@ Carga_Clientes(cliente v[], int* i, int mod, int* c)
     {
         if (mod == 0)
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
 
             //-------------------->CEDULA
             do
             {
-                cedula(v[*i].cedula, 1);
-                Busca_Cedula(vCliente, cantidad_clientes, &l, v[*i].cedula);
+                obtener_cedula_de_cliente(v[*i].cedula, 1);
+                buscar_cliente_de_banco(vCliente, cantidad_clientes, &l, v[*i].cedula);
             }
             while (l > 1);
 
@@ -1511,14 +1513,14 @@ Carga_Clientes(cliente v[], int* i, int mod, int* c)
 
             //-------------------->FIN TELEFONO
             //-------------------->REFERENCIA DEL CLIENTE
-            cedula(v[*i].ref, 2);
+            obtener_cedula_de_cliente(v[*i].ref, 2);
 
             //-------------------->FIN REFERENCIA DEL CLIENTE
             //-------------------->CODIGO DE LA SUCURSAL
             do
             {
-                sucursal(v[*i].csuc, 1);
-                Busca_Sucursal(vSucursal, *i, &b, v[*i].csuc);
+                obtener_sucursal_de_banco(v[*i].csuc, 1);
+                buscar_sucursal_de_banco(vSucursal, *i, &b, v[*i].csuc);
 
                 if (b == 0)
                 {
@@ -1529,7 +1531,7 @@ Carga_Clientes(cliente v[], int* i, int mod, int* c)
 
             //-------------------->FIN CODIGO DE LA SUCURSAL
             //-------------------->CARGA CREA UNA CUENTA OBLIGATORIAMENTE PARA TODO CLIENTE NUEVO
-            Carga_Cuenta(vCuenta, &*c, 0);
+            cargar_cuenta_por_interfaz(vCuenta, &*c, 0);
             //-------------------->FIN CREA UNA CUENTA OBLIGATORIAMENTE PARA TODO CLIENTE NUEVO
         }
 
@@ -1647,28 +1649,28 @@ Carga_Clientes(cliente v[], int* i, int mod, int* c)
 
         if (mod == 0)
         {
-            Pregunta(&n, 1);
+            realizar_pregunta(&n, 1);
             *i += 1; //Incrementa el Acumulador de Clientes
         }
     }
     while (n == 'S' && mod != 1);
 }
-Carga_Sucursal(rsucursal v[], int* i, int mod)
+cargar_sucursal_por_interfaz(rsucursal v[], int* i, int mod)
 {
     int b, j;
     char n, t[M], cc;
 
     do
     {
-        LimpiarPantalla();
+        limpiar_pantalla();
 
         if (mod == 0)
         {
             //-------------------->CODIGO DE LA SUCURSAL
             do
             {
-                sucursal(v[*i].csuc, 1);
-                Busca_Sucursal(v, *i, &j, v[*i].csuc);
+                obtener_sucursal_de_banco(v[*i].csuc, 1);
+                buscar_sucursal_de_banco(v, *i, &j, v[*i].csuc);
             }
             while (j > 1);
 
@@ -1821,13 +1823,13 @@ Carga_Sucursal(rsucursal v[], int* i, int mod)
 
         if (mod == 0)
         {
-            Pregunta(&n, 3);
+            realizar_pregunta(&n, 3);
             *i += 1; //INCREMENTA EL ACUMULADOR
         }
     }
     while (n == 'S' && mod != 1);
 }
-Carga_Cuenta(cuenta v[], int* i, int mod)
+cargar_cuenta_por_interfaz(cuenta v[], int* i, int mod)
 {
     int b, cant;
     char n, m, tcta[M];
@@ -1836,20 +1838,20 @@ Carga_Cuenta(cuenta v[], int* i, int mod)
     {
         if (mod == 0)
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
 
             //-------------------->
             //-------------------->CODIGO DE LA CUENTA
             do
             {
-                nocta(v[*i].ccta);
-                Busca_Cuenta(v, *i, &b, v[*i].ccta);
+                obtener_numero_de_cuenta(v[*i].ccta);
+                buscar_cuenta_de_banco(v, *i, &b, v[*i].ccta);
             }
             while (b > 1);
 
             //-------------------->FIN CODIGO DE LA CUENTA
             //-------------------->CEDULA DEL CLIENTE DE LA CUENTA
-            cedula(v[*i].ccli, 1);
+            obtener_cedula_de_cliente(v[*i].ccli, 1);
 
             //-------------------->FIN CEDULA DEL CLIENTE DE LA CUENTA
             //-------------------->TIPO DE CUENTA
@@ -1885,10 +1887,10 @@ Carga_Cuenta(cuenta v[], int* i, int mod)
                     do
                     {
                         //-------------------->FECHA DE APERTURA
-                        fecha(&v[*i].faper.dia, &v[*i].faper.mes, &v[*i].faper.ano, 2);
+                        obtener_fecha(&v[*i].faper.dia, &v[*i].faper.mes, &v[*i].faper.ano, 2);
                         //-------------------->FIN FECHA DE APERTURA
                         //-------------------->FECHA ULTIMO PAGO DE INTERESES
-                        fecha(&v[*i].fupi.dia, &v[*i].fupi.mes, &v[*i].fupi.ano, 1);
+                        obtener_fecha(&v[*i].fupi.dia, &v[*i].fupi.mes, &v[*i].fupi.ano, 1);
                         //-------------------->FIN FECHA ULTIMO PAGO DE INTERESES
                     }
                     while (v[*i].faper.dia > v[*i].fupi.dia && v[*i].faper.mes == v[*i].fupi.mes
@@ -1901,8 +1903,8 @@ Carga_Cuenta(cuenta v[], int* i, int mod)
             //-------------------->CODIGO DE LA SUCURSAL
             do
             {
-                sucursal(v[*i].csuc, 1);
-                Busca_Sucursal(vSucursal, *i, &b, v[*i].csuc);
+                obtener_sucursal_de_banco(v[*i].csuc, 1);
+                buscar_sucursal_de_banco(vSucursal, *i, &b, v[*i].csuc);
 
                 if (b == 0)
                 {
@@ -1929,19 +1931,19 @@ Carga_Cuenta(cuenta v[], int* i, int mod)
         {
             //-------------------->FECHA ULTIMO PAGO DE INTERESES
             printf(ST RES"\t\tNOTA: SOLO SE MODIFICARÁ LA ULTIMA FECHA DEL PAGO DE INTERESES"CB"\n\n\n");
-            fecha(&v[*i].fupi.dia, &v[*i].fupi.mes, &v[*i].fupi.ano, 1);
+            obtener_fecha(&v[*i].fupi.dia, &v[*i].fupi.mes, &v[*i].fupi.ano, 1);
             //-------------------->FIN FECHA ULTIMO PAGO DE INTERESES
         }
 
         if (mod == 0)
         {
-            Pregunta(&n, 2);
+            realizar_pregunta(&n, 2);
             *i += 1; //Incrementa el Acumulador de Cuentas
         }
     }
     while (n == 'S' && mod != 1);
 }
-Carga_Transaccion(transaccion v[], int* i)
+cargar_transaccion_por_interfaz(transaccion v[], int* i)
 {
     int j, b;
     char n, to[2];
@@ -1949,25 +1951,25 @@ Carga_Transaccion(transaccion v[], int* i)
 
     do
     {
-        LimpiarPantalla();
+        limpiar_pantalla();
 
         //-------------------->REFERENCIA DE LA CUENTA
         do
         {
-            ref(v[*i].ref);
-            Busca_Referencia(v, *i, &j, v[*i].ref);
+            obtener_referencia_de_cuenta(v[*i].ref);
+            buscar_referencia_de_transaccion(v, *i, &j, v[*i].ref);
         }
         while (j > 1);
 
         //-------------------->FIN REFERENCIA DE LA CUENTA
         //-------------------->NUMERO DE LA CUENTA
-        nocta(v[*i].ccta);
+        obtener_numero_de_cuenta(v[*i].ccta);
         //-------------------->FIN NUMERO DE LA CUENTA
         //-------------------->FECHA DE LA TRANSACCION
-        fecha(&v[*i].ftrans.dia, &v[*i].ftrans.mes, &v[*i].ftrans.ano, 1);
+        obtener_fecha(&v[*i].ftrans.dia, &v[*i].ftrans.mes, &v[*i].ftrans.ano, 1);
         //-------------------->FIN FECHA DE LA TRANSACCION
         //-------------------->MONTO DE LA TRANSACCION
-        monto(&v[*i].mtrans);
+        obtener_monto_transaccion(&v[*i].mtrans);
 
         //-------------------->FIN MONTO DE LA TRANSACCION
         //-------------------->TIPO DE OPERACION
@@ -2001,14 +2003,14 @@ Carga_Transaccion(transaccion v[], int* i)
 
         //-------------------->FIN TIPO DE OPERACION
         //-------------------->CODIGO DE LA SUCURSAL
-        sucursal(v[*i].csuc, 0);
+        obtener_sucursal_de_banco(v[*i].csuc, 0);
         //-------------------->FIN CODIGO DE LA SUCURSAL
-        Pregunta(&n, 4);
+        realizar_pregunta(&n, 4);
         *i += 1; //Incrementa el Acumulador de Transacciones
     }
     while (n == 'S');
 }
-Tipo_Cuenta(char* cta)
+obtener_tipo_de_cuenta_cliente(char* cta)
 {
     char tcta[M];
 
@@ -2037,14 +2039,14 @@ Tipo_Cuenta(char* cta)
     while (*cta != '\x41' && *cta != '\x43' && *cta != '\x49');
 }
 
-Modifica_Sucursales(rsucursal v[], int* i)
+modificar_sucursales(rsucursal v[], int* i)
 {
     int j, p, mod, b;
     char ccod[M], n;
 
     do
     {
-        sucursal(ccod, 4);
+        obtener_sucursal_de_banco(ccod, 4);
         p = -1;
 
         for (j = 0; j < *i; j++)
@@ -2068,25 +2070,25 @@ Modifica_Sucursales(rsucursal v[], int* i)
 
         else
         {
-            Pregunta(&n, 6);
+            realizar_pregunta(&n, 6);
 
             if (n == 'S')
             {
-                Carga_Sucursal(vSucursal, &p, 1);
+                cargar_sucursal_por_interfaz(vSucursal, &p, 1);
                 p = 0;
             }
         }
     }
     while (p == -1);
 }
-Modifica_Cliente(cliente v[], int* i, int* c)
+modificar_clientes(cliente v[], int* i, int* c)
 {
     int j, p, mod, b;
     char ci[M], n;
 
     do
     {
-        cedula(ci, 4);
+        obtener_cedula_de_cliente(ci, 4);
         p = -1;
 
         for (j = 0; j < *i; j++)
@@ -2114,25 +2116,25 @@ Modifica_Cliente(cliente v[], int* i, int* c)
 
         else
         {
-            Pregunta(&n, 5);
+            realizar_pregunta(&n, 5);
 
             if (n == 'S')
             {
-                Carga_Clientes(vCliente, &p, 1, &*c);
+                cargar_cliente_por_interfaz(vCliente, &p, 1, &*c);
                 p = 0;
             }
         }
     }
     while (p == -1);
 }
-Modifica_Cuenta(cuenta v[], int* i)
+modificar_cuentas(cuenta v[], int* i)
 {
     int j, p, mod, b;
     char ccod[M], n;
 
     do
     {
-        nocta(ccod);
+        obtener_numero_de_cuenta(ccod);
         p = -1;
 
         for (j = 0; j < *i; j++)
@@ -2159,11 +2161,11 @@ Modifica_Cuenta(cuenta v[], int* i)
 
         else
         {
-            Pregunta(&n, 6);
+            realizar_pregunta(&n, 6);
 
             if (n == 'S')
             {
-                Carga_Cuenta(vCuenta, &p, 1);
+                cargar_cuenta_por_interfaz(vCuenta, &p, 1);
                 p = 0;
             }
         }
@@ -2171,12 +2173,12 @@ Modifica_Cuenta(cuenta v[], int* i)
     while (p == -1);
 }
 
-Consulta_Cliente(cliente v[], int i)
+consultar_clientes(cliente v[], int i)
 {
     char ci[M];
     int j;
-    LimpiarPantalla();
-    cedula(ci, 3);
+    limpiar_pantalla();
+    obtener_cedula_de_cliente(ci, 3);
 
     for (j = 0; j < i; j++)
     {
@@ -2194,12 +2196,12 @@ Consulta_Cliente(cliente v[], int i)
         }
     }
 }
-Consulta_Cuenta(cuenta v[], int i)
+consultar_cuentas(cuenta v[], int i)
 {
     char ccta[M];
     int j;
-    LimpiarPantalla();
-    nocta(ccta);
+    limpiar_pantalla();
+    obtener_numero_de_cuenta(ccta);
 
     for (j = 0; j < i; j++)
     {
@@ -2217,12 +2219,12 @@ Consulta_Cuenta(cuenta v[], int i)
         }
     }
 }
-Consulta_Sucursal(rsucursal v[], int i)
+consultar_sucursales(rsucursal v[], int i)
 {
     char cod[M];
     int j;
-    LimpiarPantalla();
-    sucursal(cod, 2);
+    limpiar_pantalla();
+    obtener_sucursal_de_banco(cod, 2);
 
     for (j = 0; j < i; j++)
     {
@@ -2236,12 +2238,12 @@ Consulta_Sucursal(rsucursal v[], int i)
         }
     }
 }
-Consulta_Transaccion(transaccion v[], int i)
+consultar_numero_de_transacciones(transaccion v[], int i)
 {
     char cref[M];
     int j;
-    LimpiarPantalla();
-    ref(cref);
+    limpiar_pantalla();
+    obtener_referencia_de_cuenta(cref);
 
     for (j = 0; j < i; j++)
     {
@@ -2259,8 +2261,8 @@ Consulta_Transaccion(transaccion v[], int i)
     }
 }
 
-Mostrar_Transacciones(cliente cl[], cuenta cu[], transaccion tr[],
-                      rsucursal su[], int ccl, int ccu, int ctr, int csu)
+mostrar_transacciones_en_pantalla(cliente cl[], cuenta cu[], transaccion tr[],
+                                  rsucursal su[], int ccl, int ccu, int ctr, int csu)
 {
     int di, mi, ai; //VARIABLES PARA LA FECHA INICIAL
     int df, mf, af; //VARIABLES PARA LA FECHA FINAL
@@ -2270,8 +2272,8 @@ Mostrar_Transacciones(cliente cl[], cuenta cu[], transaccion tr[],
 
     do
     {
-        fecha(&di, &mi, &ai, 4);
-        fecha(&df, &mf, &af, 5);
+        obtener_fecha(&di, &mi, &ai, 4);
+        obtener_fecha(&df, &mf, &af, 5);
 
         if (ai > af)
         {
@@ -2515,7 +2517,7 @@ Mostrar_Transacciones(cliente cl[], cuenta cu[], transaccion tr[],
     }
 }
 
-Intereses(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu,
+calcular_intereses_en_rango_de_fecha(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu,
           int ctr)
 {
     int i, j, k;
@@ -2526,8 +2528,8 @@ Intereses(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu,
 
     do
     {
-        fecha(&di, &mi, &ai, 7);
-        fecha(&df, &mf, &af, 8);
+        obtener_fecha(&di, &mi, &ai, 7);
+        obtener_fecha(&df, &mf, &af, 8);
 
         if (af == ai && mf == mi && di >= df)
         {
@@ -2551,7 +2553,7 @@ Intereses(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu,
     while ((af == ai && mf == mi && di >= df) || (af == ai && mi > mf)
            || (ai > af));
 
-    LimpiarPantalla();
+    limpiar_pantalla();
 
     for (j = 0; j < ccu; j++)
     {
@@ -2621,7 +2623,7 @@ Intereses(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu,
     }
 }
 
-ES_Clientes(cliente v[], int c)
+escribir_datos_clientes(cliente v[], int c)
 {
     int i;
     FILE* arch;
@@ -2642,7 +2644,7 @@ ES_Clientes(cliente v[], int c)
 
     close(arch);
 }
-ES_Cuentas(cuenta v[], int c)
+escribir_datos_cuentas(cuenta v[], int c)
 {
     int i;
     FILE* arch;
@@ -2662,7 +2664,7 @@ ES_Cuentas(cuenta v[], int c)
 
     close(arch);
 }
-ES_Sucursal(rsucursal v[], int c)
+escribir_datos_sucursales(rsucursal v[], int c)
 {
     int i;
     FILE* arch;
@@ -2679,7 +2681,7 @@ ES_Sucursal(rsucursal v[], int c)
 
     close(arch);
 }
-ES_Transacciones(transaccion v[], int c)
+escribir_datos_transacciones(transaccion v[], int c)
 {
     int i;
     FILE* arch;
@@ -2699,7 +2701,8 @@ ES_Transacciones(transaccion v[], int c)
     close(arch);
 }
 
-BAR(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu, int* ctr)
+calcular_bono_amigo_referido(cliente cl[], cuenta cu[], transaccion tr[],
+                             int ccl, int ccu, int* ctr)
 {
     typedef struct db
     {
@@ -2714,9 +2717,9 @@ BAR(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu, int* ctr)
     int band, ex; //BANDERA
     int d, m, a; //DIA, MES, AÑO
     int cbar[MX];/*RETORNA UN VECTOR QUE SE RELACIONA CON LOS CLIENTES POR MEDIO DE LAS POSICIONES, LA CANTIDAD ENTERA QUE CONTIENE CADA POSICION SE MULTIPLICARAN POR LA SUMA DE Bs. 50000 Y SE MOSTRARAN A CADA CLIENTE PARA UNA FECHA DADA */
-    LimpiarPantalla();
-    fecha(&d, &m, &a, 6);
-    LimpiarPantalla();
+    limpiar_pantalla();
+    obtener_fecha(&d, &m, &a, 6);
+    limpiar_pantalla();
 
     for (i = 0; i < ccl; i++)
     {
@@ -2764,7 +2767,7 @@ BAR(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu, int* ctr)
 
         if (i == ccl - 1 && ex != 2)
         {
-            LimpiarPantalla();
+            limpiar_pantalla();
             printf(LC CR"\t\t\t\tNo se encontraron Clientes que cumplan con las Condiciones Establecidas");
             printf("\n\t\t\t\t\tpara la recompensa del B.A.R. (Bono Amigo Referido)"CB LC);
         }
@@ -2834,8 +2837,8 @@ BAR(cliente cl[], cuenta cu[], transaccion tr[], int ccl, int ccu, int* ctr)
                        vDB[j].topera);
                 printf("\t\tSucursal donde pertenece la Cuenta del Cliente: %s\n\n"CB,
                        vDB[j].csuc);
-                ref(tr[i].ref);
-                Busca_Referencia(tr, i, &k, tr[i].ref);
+                obtener_referencia_de_cuenta(tr[i].ref);
+                buscar_referencia_de_transaccion(tr, i, &k, tr[i].ref);
             }
             while (k > 1);
 
@@ -2866,12 +2869,12 @@ main()
     cantidad_sucursales = 0;
     cantidad_transacciones = 0;
     ///PRESENTACION
-    interfaz();
-    pres();
+    mostrar_interfaz_cargando();
+    mostrar_presentacion();
 
     do
     {
-        menu(&opc_men);
+        mostrar_menu_principal(&opc_men);
 
         switch (opc_men)
         {
@@ -2879,7 +2882,7 @@ main()
             {
                 do
                 {
-                    menu_arc(&opc_arc);
+                    mostrar_menu_carga_archivos(&opc_arc);
 
                     switch (opc_arc)
                     {
@@ -2887,7 +2890,7 @@ main()
                         {
                             if (band[0] == 0)
                             {
-                                Archivo_Sucursal(vSucursal, &cantidad_sucursales);
+                                cargar_archivo_de_sucursal(vSucursal, &cantidad_sucursales);
                                 band[0] += 1;
                                 printf(CV"\t\t\t\t\t\t\t\tSucursales.in > Cargado..."CB"\n\n\n");
                                 opc = 'N';
@@ -2907,7 +2910,7 @@ main()
                         {
                             if (band[0] == 1)
                             {
-                                Archivo_Clientes(vCliente, &cantidad_clientes);
+                                cargar_archivo_de_clientes(vCliente, &cantidad_clientes);
                                 band[0] += 1;
                                 printf(CV"\t\t\t\t\t\t\t\tClientes.in > Cargado..."CB"\n\n\n");
                                 opc = 'N';
@@ -2934,7 +2937,7 @@ main()
                         {
                             if (band[0] == 2)
                             {
-                                Archivo_Cuentas(vCuenta, &cantidad_cuentas);
+                                cargar_archivo_de_cuentas(vCuenta, &cantidad_cuentas);
                                 band[0] += 1;
                                 printf(CV"\t\t\t\t\t\t\t\tCuentas.in > Cargado..."CB"\n\n\n");
                                 opc = 'N';
@@ -2961,7 +2964,7 @@ main()
                         {
                             if (band[0] == 3)
                             {
-                                Archivo_Transaccion(vTransaccion, &cantidad_transacciones);
+                                cargar_archivo_de_transaccion(vTransaccion, &cantidad_transacciones);
                                 band[0] += 1;
                                 printf(CV"\t\t\t\t\t\t\t\tTransacciones.in > Cargado..."CB"\n\n\n");
                                 opc = 'N';
@@ -3004,7 +3007,7 @@ main()
             {
                 do
                 {
-                    menu_dat(&opc_dat);
+                    mostrar_menu_ingreso_datos(&opc_dat);
 
                     switch (opc_dat)
                     {
@@ -3012,7 +3015,7 @@ main()
                         {
                             if (band[0] >= 1)
                             {
-                                Carga_Sucursal(vSucursal, &cantidad_sucursales, 0);
+                                cargar_sucursal_por_interfaz(vSucursal, &cantidad_sucursales, 0);
                                 opc = 'N';
                             }
 
@@ -3029,7 +3032,7 @@ main()
                         {
                             if (band[0] >= 2)
                             {
-                                Carga_Clientes(vCliente, &cantidad_clientes, 0, &cantidad_cuentas);
+                                cargar_cliente_por_interfaz(vCliente, &cantidad_clientes, 0, &cantidad_cuentas);
                                 opc = 'N';
                             }
 
@@ -3046,7 +3049,7 @@ main()
                         {
                             if (band[0] >= 3)
                             {
-                                Carga_Cuenta(vCuenta, &cantidad_cuentas, 0);
+                                cargar_cuenta_por_interfaz(vCuenta, &cantidad_cuentas, 0);
                                 opc = 'N';
                             }
 
@@ -3063,7 +3066,7 @@ main()
                         {
                             if (band[0] >= 4)
                             {
-                                Carga_Transaccion(vTransaccion, &cantidad_transacciones);
+                                cargar_transaccion_por_interfaz(vTransaccion, &cantidad_transacciones);
                                 opc = 'N';
                             }
 
@@ -3085,7 +3088,7 @@ main()
 
                     if (opc != 'S')
                     {
-                        Pregunta(&opc, 7);
+                        realizar_pregunta(&opc, 7);
                     }
                 }
                 while (opc == 'N');
@@ -3096,7 +3099,7 @@ main()
             {
                 do
                 {
-                    menu_mod(&opc_mod);
+                    mostrar_menu_modificar_datos(&opc_mod);
 
                     switch (opc_mod)
                     {
@@ -3104,7 +3107,7 @@ main()
                         {
                             if (band[0] >= 1)
                             {
-                                Modifica_Sucursales(vSucursal, &cantidad_sucursales);
+                                modificar_sucursales(vSucursal, &cantidad_sucursales);
                             }
 
                             else
@@ -3118,7 +3121,7 @@ main()
                         {
                             if (band[0] >= 2)
                             {
-                                Modifica_Cliente(vCliente, &cantidad_clientes, &cantidad_cuentas);
+                                modificar_clientes(vCliente, &cantidad_clientes, &cantidad_cuentas);
                             }
 
                             else
@@ -3132,7 +3135,7 @@ main()
                         {
                             if (band[0] >= 3)
                             {
-                                Modifica_Cuenta(vCuenta, &cantidad_cuentas);
+                                modificar_cuentas(vCuenta, &cantidad_cuentas);
                             }
 
                             else
@@ -3157,7 +3160,7 @@ main()
             {
                 do
                 {
-                    menu_con(&opc_con);
+                    mostrar_menu_consulta_datos(&opc_con);
 
                     switch (opc_con)
                     {
@@ -3165,7 +3168,7 @@ main()
                         {
                             if (band[0] >= 1)
                             {
-                                Consulta_Sucursal(vSucursal, cantidad_sucursales);
+                                consultar_sucursales(vSucursal, cantidad_sucursales);
                             }
 
                             else
@@ -3180,7 +3183,7 @@ main()
                         {
                             if (band[0] >= 2)
                             {
-                                Consulta_Cliente(vCliente, cantidad_clientes);
+                                consultar_clientes(vCliente, cantidad_clientes);
                             }
 
                             else
@@ -3195,7 +3198,7 @@ main()
                         {
                             if (band[0] >= 3)
                             {
-                                Consulta_Cuenta(vCuenta, cantidad_cuentas);
+                                consultar_cuentas(vCuenta, cantidad_cuentas);
                             }
 
                             else
@@ -3210,7 +3213,7 @@ main()
                         {
                             if (band[0] >= 4)
                             {
-                                Consulta_Transaccion(vTransaccion, cantidad_transacciones);
+                                consultar_numero_de_transacciones(vTransaccion, cantidad_transacciones);
                             }
 
                             else
@@ -3228,7 +3231,7 @@ main()
                         break;
                     }
 
-                    Pregunta(&opc, 7);
+                    realizar_pregunta(&opc, 7);
                 }
                 while (opc == 'N');
             }
@@ -3240,8 +3243,9 @@ main()
                 {
                     if (band[0] == 4)
                     {
-                        Saldo( vCuenta, vTransaccion, cantidad_cuentas, cantidad_transacciones);
-                        Intereses(vCliente, vCuenta, vTransaccion, cantidad_clientes, cantidad_cuentas,
+                        calcular_saldo_de_cuenta_cliente( vCuenta, vTransaccion, cantidad_cuentas,
+                                                          cantidad_transacciones);
+                        calcular_intereses_en_rango_de_fecha(vCliente, vCuenta, vTransaccion, cantidad_clientes, cantidad_cuentas,
                                   cantidad_transacciones);
                     }
 
@@ -3251,7 +3255,7 @@ main()
                         printf(CB"\t\t\t\t\t\"Clientes.in\" , \"Cuentas.in\" , \"Transacciones.in\""LC"\n\n\n");
                     }
 
-                    Pregunta(&opc, 7);
+                    realizar_pregunta(&opc, 7);
                 }
                 while (opc == 'N');
             }
@@ -3263,10 +3267,11 @@ main()
                 {
                     if (band[0] == 4 && band[1] == 0)
                     {
-                        BAR(vCliente, vCuenta, vTransaccion, cantidad_clientes, cantidad_cuentas,
-                            &cantidad_transacciones);
+                        calcular_bono_amigo_referido(vCliente, vCuenta, vTransaccion, cantidad_clientes,
+                                                     cantidad_cuentas,
+                                                     &cantidad_transacciones);
                         band[1] = 1;
-                        Pregunta(&opc, 7);
+                        realizar_pregunta(&opc, 7);
                     }
 
                     else if (band[1] == 1)
@@ -3293,10 +3298,10 @@ main()
             {
                 do
                 {
-                    Mostrar_Transacciones(vCliente, vCuenta, vTransaccion, vSucursal,
-                                          cantidad_clientes, cantidad_cuentas, cantidad_transacciones,
-                                          cantidad_sucursales);
-                    Pregunta(&opc, 7);
+                    mostrar_transacciones_en_pantalla(vCliente, vCuenta, vTransaccion, vSucursal,
+                                                      cantidad_clientes, cantidad_cuentas, cantidad_transacciones,
+                                                      cantidad_sucursales);
+                    realizar_pregunta(&opc, 7);
                 }
                 while (opc == 'N');
             }
@@ -3304,7 +3309,7 @@ main()
 
             case 8: ///ACERCA DE..
             {
-                LimpiarPantalla();
+                limpiar_pantalla();
                 printf("\n\n\n\n\n\n\n\t\t\t\t\t\x50\x72\x6f\x79\x65\x63\x74\x6f\x20\x52\x65\x61\x6c\x69\x7a\x61\x64\x6f\x20\x70\x6f\x72\x3a");
                 printf("\x0d\x0a\t\t\t\t\t\x4c\x6f\x61\x6e\x61\x20\x4c\x65\x6f\x6e\x20\x79\x20\x4f\x73\x76\x61\x6c\x20\x52\x65\x79\x65\x73");
                 printf("\x0d\x0a\t\t\t\t\t\x46\x41\x43\x59\x54\x20\x2d\x20\x43\x6f\x6d\x70\x75\x74\x61\x63\x69\x6f\x6e");
@@ -3316,13 +3321,14 @@ main()
 
             case 9: ///SALIR
             {
-                OPERACIONES(vCuenta, cantidad_cuentas, vSucursal, cantidad_sucursales, vCliente,
-                            cantidad_clientes, vTransaccion, cantidad_transacciones );
-                ES_Clientes(vCliente, cantidad_clientes);
-                ES_Cuentas(vCuenta, cantidad_cuentas);
-                ES_Sucursal(vSucursal, cantidad_sucursales);
-                ES_Transacciones(vTransaccion, cantidad_transacciones);
-                LimpiarPantalla();
+                corroborar_operaciones_realizadas(vCuenta, cantidad_cuentas, vSucursal,
+                                                  cantidad_sucursales, vCliente,
+                                                  cantidad_clientes, vTransaccion, cantidad_transacciones );
+                escribir_datos_clientes(vCliente, cantidad_clientes);
+                escribir_datos_cuentas(vCuenta, cantidad_cuentas);
+                escribir_datos_sucursales(vSucursal, cantidad_sucursales);
+                escribir_datos_transacciones(vTransaccion, cantidad_transacciones);
+                limpiar_pantalla();
                 exit(0);
             }
             break;
